@@ -1,11 +1,11 @@
-using GHelper.Helpers;
+﻿using GHelper.Helpers;
 using System.Management;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
 /// <summary>
 /// Mouse-only config store. Reads and writes the same config.json used by
-/// G-Helper so existing mouse settings (DPI, bindings, lighting) are kept.
+/// G-Helper so existing mouse settings (DPI, lighting) are kept.
 /// </summary>
 public static class AppConfig
 {

@@ -203,9 +203,6 @@
   <data name="Import" xml:space="preserve">
     <value>Importar perfil</value>
   </data>
-  <data name="KeyBindings" xml:space="preserve">
-    <value>Teclas de acceso rápido</value>
-  </data>
   <data name="Lighting" xml:space="preserve">
     <value>Iluminación</value>
   </data>
@@ -256,9 +253,6 @@
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Perfil</value>
-  </data>
-  <data name="Reset" xml:space="preserve">
-    <value>Reiniciar</value>
   </data>
   <data name="MouseMotionSync" xml:space="preserve">
     <value>Sincronización de movimiento</value>

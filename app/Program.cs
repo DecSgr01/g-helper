@@ -13,6 +13,9 @@ namespace GHelper
     {
         public static NotifyIcon trayIcon;
 
+        // The single settings window currently open. Tray click toggles it.
+        private static AsusMouseSettings? settingsForm;
+
         // Main entry point for the application
         public static void Main(string[] args)
         {
@@ -67,8 +70,8 @@ namespace GHelper
         private static ContextMenuStrip BuildTrayMenu()
         {
             var menu = new ContextMenuStrip();
-            var open = menu.Items.Add("Open mouse settings");
-            open.Click += (_, _) => TrayIcon_MouseClick(null, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+            var open = menu.Items.Add("Open / Close mouse settings");
+            open.Click += (_, _) => ToggleSettingsWindow();
             menu.Items.Add(new ToolStripSeparator());
             var exit = menu.Items.Add("Exit");
             exit.Click += (_, _) => Application.Exit();
@@ -78,6 +81,18 @@ namespace GHelper
         static void TrayIcon_MouseClick(object? sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left) return;
+            ToggleSettingsWindow();
+        }
+
+        private static void ToggleSettingsWindow()
+        {
+            // Already open -> close it (this also unsubscribes mouse listeners).
+            if (settingsForm is not null)
+            {
+                if (!settingsForm.IsDisposed) settingsForm.Close();
+                settingsForm = null;
+                return;
+            }
 
             var mice = PeripheralsProvider.SnapshotMice();
             if (mice.Count == 0)
@@ -108,6 +123,8 @@ namespace GHelper
             try
             {
                 var form = new AsusMouseSettings(mouse);
+                form.FormClosed += (_, _) => settingsForm = null;
+                settingsForm = form;
                 form.Show();
             }
             catch (Exception ex)

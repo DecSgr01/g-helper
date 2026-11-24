@@ -321,14 +321,6 @@ namespace GHelper.Properties {
             }
         }
 
-        /// <summary>
-        ///   Looks up a localized string similar to Key Bindings.
-        /// </summary>
-        internal static string KeyBindings {
-            get {
-                return ResourceManager.GetString("KeyBindings", resourceCulture);
-            }
-        }
 
         /// <summary>
         ///   Looks up a localized string similar to Lighting.
@@ -501,14 +493,6 @@ namespace GHelper.Properties {
             }
         }
 
-        /// <summary>
-        ///   Looks up a localized string similar to Reset.
-        /// </summary>
-        internal static string Reset {
-            get {
-                return ResourceManager.GetString("Reset", resourceCulture);
-            }
-        }
 
     }
 }

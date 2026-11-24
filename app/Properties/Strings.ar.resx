@@ -203,9 +203,6 @@
   <data name="Import" xml:space="preserve">
     <value>استيراد الملف الشخصي</value>
   </data>
-  <data name="KeyBindings" xml:space="preserve">
-    <value>تعيينات المفاتيح</value>
-  </data>
   <data name="Lighting" xml:space="preserve">
     <value>الإضاءة</value>
   </data>
@@ -256,9 +253,6 @@
   </data>
   <data name="Profile" xml:space="preserve">
     <value>ملف التعريف</value>
-  </data>
-  <data name="Reset" xml:space="preserve">
-    <value>إعادة ضبط</value>
   </data>
   <data name="MouseMotionSync" xml:space="preserve">
     <value>Motion Sync</value>
