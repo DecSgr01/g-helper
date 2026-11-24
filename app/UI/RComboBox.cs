@@ -270,11 +270,6 @@ namespace GHelper.UI
 
         private const int WM_PAINT = 0xF;
         [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
-        {
-            public int L, T, R, B;
-        }
-        [StructLayout(LayoutKind.Sequential)]
         public struct PAINTSTRUCT
         {
             public nint hdc;
@@ -304,15 +299,6 @@ namespace GHelper.UI
         [DllImport("gdi32.dll")]
         public static extern int SelectClipRgn(nint hDC, nint hRgn);
 
-        [DllImport("user32.dll")]
-        public static extern int GetUpdateRgn(nint hwnd, nint hrgn, bool fErase);
-        public enum RegionFlags
-        {
-            ERROR = 0,
-            NULLREGION = 1,
-            SIMPLEREGION = 2,
-            COMPLEXREGION = 3,
-        }
         [DllImport("gdi32.dll")]
         internal static extern bool DeleteObject(nint hObject);
 

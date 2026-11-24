@@ -411,8 +411,7 @@ namespace GHelper
             ApplyAuraSyncUIState();
             if (loadingSettings) return;
 
-            PeripheralsProvider.SetAuraSync(checkBoxSyncAura.Checked);
-            Program.settingsForm.UpdateKeyboardLabel();
+            AppConfig.Set("mouse_aura_sync", checkBoxSyncAura.Checked ? 1 : 0);
 
             if (checkBoxSyncAura.Checked)
             {
@@ -994,7 +993,6 @@ namespace GHelper
         {
             mouse.ResetButtonBindings();
             VisualizeButtonBindings();
-            Program.inputDispatcher?.RegisterKeys();
         }
 
         private void BindingCombo_Changed(object? sender, EventArgs e)
@@ -1017,7 +1015,6 @@ namespace GHelper
                     return;
                 }
                 mouse.SetButtonBinding(slot, item.Code);
-                Program.inputDispatcher?.RegisterKeys();
             }
         }
 
@@ -1376,16 +1373,11 @@ namespace GHelper
         private void AsusMouseSettings_Shown(object? sender, EventArgs e)
         {
 
-            if (Height > Program.settingsForm.Height)
-            {
-                Top = Program.settingsForm.Top + Program.settingsForm.Height - Height;
-            }
-            else
-            {
-                Top = Program.settingsForm.Top;
-            }
-
-            Left = Program.settingsForm.Left - Width - 5;
+            // Mouse-only build has no main window. Center on the working area
+            // of the current screen so the settings window is always visible.
+            var screen = Screen.FromPoint(Cursor.Position);
+            Left = screen.WorkingArea.Left + (screen.WorkingArea.Width - Width) / 2;
+            Top = screen.WorkingArea.Top + (screen.WorkingArea.Height - Height) / 2;
 
 
             mouse.Disconnect += Mouse_Disconnect;

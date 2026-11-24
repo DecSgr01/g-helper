@@ -1,4 +1,4 @@
-﻿using GHelper.AnimeMatrix.Communication;
+using GHelper.AnimeMatrix.Communication;
 using GHelper.AnimeMatrix.Communication.Platform;
 using GHelper.USB;
 using System.Runtime.CompilerServices;
@@ -720,11 +720,6 @@ namespace GHelper.Peripherals.Mouse
             return PeripheralType.Mouse;
         }
 
-        public virtual Image Icon()
-        {
-            return Properties.Resources.icons8_maus_48;
-        }
-
         public virtual void SynchronizeDevice()
         {
             DpiSettings = new AsusMouseDPI[DPIProfileCount()];
@@ -1042,19 +1037,6 @@ namespace GHelper.Peripherals.Mouse
 
         public abstract PollingRate[] SupportedPollingrates();
 
-        protected PollingRate[] BoosterPollingrates()
-        {
-            return new PollingRate[] {
-                PollingRate.PR125Hz,
-                PollingRate.PR250Hz,
-                PollingRate.PR500Hz,
-                PollingRate.PR1000Hz,
-                PollingRate.PR2000Hz,
-                PollingRate.PR4000Hz,
-                PollingRate.PR8000Hz
-            };
-        }
-
         public virtual bool CanSetPollingRate()
         {
             return true;
@@ -1370,12 +1352,6 @@ namespace GHelper.Peripherals.Mouse
         public virtual bool HasXYDPI()
         {
             return false;
-        }
-
-        protected virtual byte[] GetChangeDPIProfilePacket(int profile)
-        {
-            //legacy function kept for TUFM3
-            return new byte[] { reportId, 0x51, 0x31, 0x0A, 0x00, (byte)profile };
         }
 
         protected virtual byte[] GetSetDPIProfileCountPacket(int count)
@@ -2182,37 +2158,6 @@ namespace GHelper.Peripherals.Mouse
                 case AuraMode.AuraRainbow: return LightingMode.Rainbow;
                 case AuraMode.Comet: return LightingMode.Comet;
                 default: return LightingMode.Static;
-            }
-        }
-
-        private int _streamingBusy;
-
-        public void WriteColorDirect(Color color)
-        {
-            if (!HasRGB() || !IsDeviceReady) return;
-            if (_otherIoBusy > 0) return;
-            if (DateTimeOffset.Now.ToUnixTimeMilliseconds() - _otherIoEndedMs < 200) return;
-            if (Interlocked.CompareExchange(ref _streamingBusy, 1, 0) != 0) return;
-
-            try
-            {
-                LightingSetting cached = LightingSettingForZone(LightingZone.All);
-                LightingSetting tmp = new LightingSetting
-                {
-                    LightingMode = LightingMode.Static,
-                    RGBColor = color,
-                    Brightness = cached?.Brightness ?? 25,
-                };
-
-                byte[] packet = GetUpdateLightingModePacket(tmp, LightingZone.All);
-                Array.Resize(ref packet, USBPacketSize());
-
-                Write(packet);
-            }
-            catch { }
-            finally
-            {
-                Interlocked.Exchange(ref _streamingBusy, 0);
             }
         }
 
