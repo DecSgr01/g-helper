@@ -92,7 +92,6 @@ namespace GHelper
             comboBoxAnimationDirection = new GHelper.UI.RComboBox();
             labelAnimationDirection = new Label();
             checkBoxRandomColor = new CheckBox();
-            checkBoxSyncAura = new CheckBox();
             comboBoxAnimationSpeed = new GHelper.UI.RComboBox();
             labelAnimationSpeed = new Label();
             buttonLightingColor = new GHelper.UI.RColorButton();
@@ -120,6 +119,7 @@ namespace GHelper
             panelBottomButtons = new Panel();
             buttonImport = new GHelper.UI.RButton();
             buttonExport = new GHelper.UI.RButton();
+            checkBoxRunAtStartup = new CheckBox();
             tableLayoutPanel2 = new TableLayoutPanel();
             rButton1 = new GHelper.UI.RButton();
             rButton2 = new GHelper.UI.RButton();
@@ -902,7 +902,6 @@ namespace GHelper
             panelLightingContent.Controls.Add(tableLayoutLightingZones);
             panelLightingContent.Controls.Add(comboBoxAnimationDirection);
             panelLightingContent.Controls.Add(labelAnimationDirection);
-            panelLightingContent.Controls.Add(checkBoxSyncAura);
             panelLightingContent.Controls.Add(checkBoxRandomColor);
             panelLightingContent.Controls.Add(comboBoxAnimationSpeed);
             panelLightingContent.Controls.Add(labelAnimationSpeed);
@@ -1092,17 +1091,6 @@ namespace GHelper
             checkBoxRandomColor.TabIndex = 53;
             checkBoxRandomColor.Text = "Random";
             checkBoxRandomColor.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxSyncAura
-            // 
-            checkBoxSyncAura.AutoSize = true;
-            checkBoxSyncAura.Location = new Point(10, 148);
-            checkBoxSyncAura.Margin = new Padding(8, 0, 8, 0);
-            checkBoxSyncAura.Name = "checkBoxSyncAura";
-            checkBoxSyncAura.Size = new Size(420, 30);
-            checkBoxSyncAura.TabIndex = 56;
-            checkBoxSyncAura.Text = "Sync with Keyboard Aura";
-            checkBoxSyncAura.UseVisualStyleBackColor = true;
             // 
             // comboBoxAnimationSpeed
             // 
@@ -1420,11 +1408,12 @@ namespace GHelper
             panelBottomButtons.Controls.Add(buttonImport);
             panelBottomButtons.Controls.Add(buttonExport);
             panelBottomButtons.Controls.Add(buttonSync);
+            panelBottomButtons.Controls.Add(checkBoxRunAtStartup);
             panelBottomButtons.Dock = DockStyle.Top;
             panelBottomButtons.Location = new Point(14, 1563);
             panelBottomButtons.Margin = new Padding(4);
             panelBottomButtons.Name = "panelBottomButtons";
-            panelBottomButtons.Size = new Size(872, 132);
+            panelBottomButtons.Size = new Size(872, 174);
             panelBottomButtons.TabIndex = 47;
             // 
             // buttonImport
@@ -1466,6 +1455,16 @@ namespace GHelper
             buttonExport.Text = "Export Profile";
             buttonExport.UseVisualStyleBackColor = false;
             buttonExport.Click += buttonExport_Click;
+            // 
+            // checkBoxRunAtStartup
+            // 
+            checkBoxRunAtStartup.AutoSize = true;
+            checkBoxRunAtStartup.Location = new Point(0, 134);
+            checkBoxRunAtStartup.Name = "checkBoxRunAtStartup";
+            checkBoxRunAtStartup.Size = new Size(140, 24);
+            checkBoxRunAtStartup.TabIndex = 49;
+            checkBoxRunAtStartup.Text = "Run at startup";
+            checkBoxRunAtStartup.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
             // 
@@ -1669,7 +1668,6 @@ namespace GHelper
         private Label labelLightingMode;
         private UI.RColorButton buttonLightingColor;
         private CheckBox checkBoxRandomColor;
-        private CheckBox checkBoxSyncAura;
         private UI.RComboBox comboBoxAnimationSpeed;
         private Label labelAnimationSpeed;
         private UI.RComboBox comboBoxAnimationDirection;
@@ -1720,6 +1718,7 @@ namespace GHelper
         private Label labelAccelerationValue;
         private UI.RButton buttonImport;
         private UI.RButton buttonExport;
+        private CheckBox checkBoxRunAtStartup;
         private RNumericUpDown numericUpDownCurrentDPI;
         private Label labelMaxDPI;
         private Panel panelRight;

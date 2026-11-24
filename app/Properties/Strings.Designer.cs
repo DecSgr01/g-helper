@@ -440,15 +440,6 @@ namespace GHelper.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Sync with laptop.
-        /// </summary>
-        internal static string MouseSyncWithAura {
-            get {
-                return ResourceManager.GetString("MouseSyncWithAura", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Synchronize with mouse.
         /// </summary>
         internal static string MouseSynchronize {
@@ -490,6 +481,15 @@ namespace GHelper.Properties {
         internal static string Profile {
             get {
                 return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Run at startup.
+        /// </summary>
+        internal static string RunAtStartup {
+            get {
+                return ResourceManager.GetString("RunAtStartup", resourceCulture);
             }
         }
 

@@ -116,7 +116,8 @@
   </resheader>
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>  <data name="Acceleration" xml:space="preserve">
+  </resheader>
+  <data name="Acceleration" xml:space="preserve">
     <value>加速</value>
   </data>
   <data name="AnimationDirection" xml:space="preserve">
@@ -242,9 +243,6 @@
   <data name="MouseSynchronize" xml:space="preserve">
     <value>和鼠标同步</value>
   </data>
-  <data name="MouseSyncWithAura" xml:space="preserve">
-    <value>与笔记本同步</value>
-  </data>
   <data name="Never" xml:space="preserve">
     <value>从不</value>
   </data>
@@ -261,4 +259,7 @@
     <value>Zone 模式</value>
   </data>
 
+  <data name="RunAtStartup" xml:space="preserve">
+    <value>开机自启</value>
+  </data>
 </root>

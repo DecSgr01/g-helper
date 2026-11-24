@@ -1,5 +1,6 @@
 ﻿using GHelper.Peripherals;
 using GHelper.Peripherals.Mouse;
+using GHelper.Helpers;
 using GHelper.UI;
 
 namespace GHelper
@@ -40,7 +41,6 @@ namespace GHelper
             labelEnergy.Text = Properties.Strings.EnergySettings;
             labelPerformance.Text = Properties.Strings.MousePerformance;
             checkBoxRandomColor.Text = Properties.Strings.AuraRandomColor;
-            checkBoxSyncAura.Text = Properties.Strings.MouseSyncWithAura;
             labelLowBatteryWarning.Text = Properties.Strings.MouseLowBatteryWarning;
             labelAutoPowerOff.Text = Properties.Strings.MouseAutoPowerOff;
             buttonSync.Text = Properties.Strings.MouseSynchronize;
@@ -62,6 +62,9 @@ namespace GHelper
 
             buttonExport.Text = Properties.Strings.Export;
             buttonImport.Text = Properties.Strings.Import;
+            checkBoxRunAtStartup.Text = Properties.Strings.RunAtStartup;
+            checkBoxRunAtStartup.Checked = StartupHelper.IsEnabled();
+            checkBoxRunAtStartup.CheckedChanged += CheckBoxRunAtStartup_CheckedChanged;
 
             labelAnimationSpeed.Text = Properties.Strings.AnimationSpeed;
             labelAnimationDirection.Text = Properties.Strings.AnimationDirection;
@@ -128,7 +131,6 @@ namespace GHelper
             comboBoxAnimationSpeed.DropDownClosed += ComboBoxAnimationSpeed_DropDownClosed;
             comboBoxAnimationDirection.DropDownClosed += ComboBoxAnimationDirection_DropDownClosed;
             checkBoxRandomColor.CheckedChanged += CheckBoxRandomColor_CheckedChanged;
-            checkBoxSyncAura.CheckedChanged += CheckBoxSyncAura_CheckedChanged;
 
             sliderLowBatteryWarning.ValueChanged += SliderLowBatteryWarning_ValueChanged;
             sliderLowBatteryWarning.MouseUp += SliderLowBatteryWarning_MouseUp;
@@ -149,6 +151,12 @@ namespace GHelper
             loadingSettings = false;
         }
 
+
+        private void CheckBoxRunAtStartup_CheckedChanged(object? sender, EventArgs e)
+        {
+            if (loadingSettings) return;
+            StartupHelper.SetEnabled(checkBoxRunAtStartup.Checked);
+        }
 
         private void SliderAcceleration_MouseUp(object? sender, EventArgs e)
         {
@@ -397,30 +405,6 @@ namespace GHelper
             UpdateLightingSettings(ls, visibleZone);
         }
 
-        private void CheckBoxSyncAura_CheckedChanged(object? sender, EventArgs e)
-        {
-            ApplyAuraSyncUIState();
-            if (loadingSettings) return;
-
-            AppConfig.Set("mouse_aura_sync", checkBoxSyncAura.Checked ? 1 : 0);
-
-            if (checkBoxSyncAura.Checked)
-            {
-                mouse.SyncFromKeyboardAura();
-                VisusalizeLightingSettings();
-            }
-        }
-
-        private void ApplyAuraSyncUIState()
-        {
-            bool syncOn = checkBoxSyncAura.Checked;
-            comboBoxLightingMode.Enabled = !syncOn;
-            buttonLightingColor.Enabled = !syncOn;
-            checkBoxRandomColor.Enabled = !syncOn;
-            comboBoxAnimationSpeed.Enabled = !syncOn;
-            comboBoxAnimationDirection.Enabled = !syncOn;
-        }
-
         private void ComboBoxAnimationDirection_DropDownClosed(object? sender, EventArgs e)
         {
             LightingSetting? ls = mouse.LightingSettingForZone(visibleZone);
@@ -635,7 +619,7 @@ namespace GHelper
             if (!mouse.IsDeviceReady)
             {
                 Logger.WriteLine(mouse.GetDisplayName() + " (GUI): Mouse is not ready. Closing view.");
-                Mouse_Disconnect(this, EventArgs.Empty);
+                // Mouse_Disconnect(this, EventArgs.Empty);
                 return;
             }
 
@@ -846,8 +830,6 @@ namespace GHelper
                     buttonLightingZoneDock.Visible = false;
                 }
 
-                checkBoxSyncAura.Checked = AppConfig.IsAuraSync();
-                ApplyAuraSyncUIState();
 
                 sliderBrightness.Max = mouse.MaxBrightness();
 
